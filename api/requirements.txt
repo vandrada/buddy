@@ -1,0 +1,4 @@
+alembic==1.0.7
+Flask==1.0.2
+SQLAlchemy-Utils==0.33.11
+arrow=0.13.0
