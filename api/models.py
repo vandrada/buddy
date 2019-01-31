@@ -1,6 +1,5 @@
-from aenum import Enum
-
 import sqlalchemy as db
+from aenum import Enum
 from sqlalchemy_utils import ArrowType
 
 metadata = db.MetaData()

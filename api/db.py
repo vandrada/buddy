@@ -2,14 +2,6 @@ import os
 
 from sqlalchemy import create_engine
 
-_defaults = {
-    "db_pass": os.getenv("DB_PASS", ""),
-    "db_host": os.getenv("DB_HOST", "localhost"),
-    "db_name": os.getenv("DB_NAME", "buddy"),
-    # $DB_USER, or $USER, or buddy
-    "db_user": os.getenv("DB_USER", os.getenv("USER", "buddy")),
-}
-
 
 class Connection:
     """
@@ -21,6 +13,13 @@ class Connection:
     """
 
     def __init__(self, db_host=None, db_name=None, db_user=None, db_pass=None):
+        self._defaults = {
+            "db_pass": os.getenv("DB_PASS", ""),
+            "db_host": os.getenv("DB_HOST", "localhost"),
+            "db_name": os.getenv("DB_NAME", "buddy"),
+            # $DB_USER, or $USER, or buddy
+            "db_user": os.getenv("DB_USER", os.getenv("USER", "buddy")),
+        }
         self.db_host = db_host
         self.db_name = db_name
         self.db_user = db_user
@@ -37,9 +36,9 @@ class Connection:
         """
         Configures the database using some of Python's built-in introspection
         features. While the code may be kinda funky, it allows the for the
-        `_defaults` dict to above to drive everything
+        `_defaults` dict above to drive everything
         """
-        for k, v in _defaults.items():
+        for k, v in self._defaults.items():
             if getattr(self, k) is None:
                 setattr(self, k, v)
 
@@ -47,5 +46,5 @@ class Connection:
         password = self.db_pass if with_password else "*******"
         return f"postgresql://{self.db_user}:{password}@{self.db_host}/{self.db_name}"
 
-    def _str_(self):
+    def __str__(self):
         return self._connect_str()

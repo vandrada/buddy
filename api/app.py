@@ -1,16 +1,16 @@
-from flask import Flask, jsonify
-from .models import Product
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+
 from .controllers import ProductController
 from .encoders import BuddyEncoder
 
-# from flask_sqlalchemy import SQLAlchemy
-# db = SQLA
-
 app = Flask("buddy")
+CORS(app)
 app.json_encoder = BuddyEncoder
 
 
 @app.route("/inventory", methods=["GET"])
 def list_products():
     controller = ProductController()
-    return jsonify(controller.list())
+    filters = request.args
+    return jsonify(controller.list(filters=filters))

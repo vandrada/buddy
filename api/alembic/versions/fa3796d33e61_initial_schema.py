@@ -30,10 +30,10 @@ def upgrade():
         sa.Column("last_sold", ArrowType),
         sa.Column("shelf_life", sa.Integer, comment="shelf life in days"),
         sa.Column("department", sa.Enum(Department)),
-        sa.Column("price", sa.BigInteger, comment="price in cents"),
+        sa.Column("price", sa.Float, comment="price in cents"),
         sa.Column("unit", sa.Enum(Unit)),
         sa.Column("x_for", sa.Integer),
-        sa.Column("cost", sa.BigInteger, comment="cost in cents"),
+        sa.Column("cost", sa.Float, comment="cost in cents"),
         sa.UniqueConstraint("product_id", "department", name="product_unique_idx"),
     )
 

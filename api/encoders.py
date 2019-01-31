@@ -6,7 +6,12 @@ from aenum import Enum
 
 
 class BuddyEncoder(JSONEncoder):
-    def default(jself, obj):
+    """
+    This is a "fat" encoder that combines multiple type-specific ones into one
+    class
+    """
+
+    def default(self, obj):
         if isinstance(obj, Enum):
             return obj.name
         elif isinstance(obj, arrow.Arrow):
