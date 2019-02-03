@@ -20,6 +20,8 @@ depends_on = None
 
 
 def upgrade():
+    op.get_bind().execute("CREATE ROLE buddy WITH LOGIN")
+
     op.create_table(
         "product",
         sa.Column(
@@ -37,6 +39,9 @@ def upgrade():
         sa.UniqueConstraint("product_id", "department", name="product_unique_idx"),
     )
 
+    op.get_bind().execute("GRANT ALL PRIVILEGES ON product TO buddy")
+
 
 def downgrade():
     op.drop_table("product")
+    op.get_bind().execute("DROP ROLE buddy")
