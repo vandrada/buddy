@@ -17,7 +17,21 @@ that important:
 
 ### Up and Running
 
-To install the dependencies into whichever virtualenv you have set up, run
+If you don't want to run through the steps manually, there are two scripts
+included in the API directory that get the database migrated and starts the
+docker container. You can run the following commands in the `api` directory.
+
+```
+$ pip install -r requirements.txt
+$ ./prep-db.sh
+$ ./run-docker.sh
+```
+
+Or, you can follow the directions below to go step-by-step.
+
+To install the dependencies into whichever virtualenv you have set up, run the
+following command in the `api` directory. Note: if using `pyenv`, I had to run
+`pyenv rehash` after installing the dependencies.
 
 ```
 $ pip install -r requirements.txt
@@ -28,6 +42,7 @@ To get your local database started
 ```
 $ createdb buddy
 $ alembic upgrade head
+$ python loader.py
 ```
 
 To run the tests,
@@ -39,7 +54,6 @@ $ python -m pytest
 Finally, to run the app proper, run
 
 ```
-$ cd api
 $ FLASK_APP=app.py flask run
 ```
 
@@ -55,13 +69,19 @@ Grocery department.
 Getting `/inventory?department=Produce&unit=lb` will list all products in the
 Produce inventory that are sold by the pound
 
+### Docker
+There's also an included Dockerfile if you don't want to mess with virtualenvs.
+
+To use it, you can run `build-docker.sh`. The script runs the docker on the host
+network to simplify it.
+
 ## UI
-The UI is build using React and Typescript.
+The UI is build using React and Typescript. Run the following commands in the
+`ui` directory.
 
 To install the dependencies, run
 
 ```
-$ cd ui
 $ yarn install
 ```
 
@@ -74,14 +94,12 @@ $ yarn test
 To run the app, run
 
 ```
-$ cd ui
 $ yarn start
 ```
 
 Or to build a production release,
 
 ```
-$ cd ui
 $ yarn build
 $ yarn add serve
 $ serve -s build
