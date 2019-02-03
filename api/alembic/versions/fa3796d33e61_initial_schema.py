@@ -40,6 +40,7 @@ def upgrade():
     )
 
     op.get_bind().execute("GRANT ALL PRIVILEGES ON product TO buddy")
+    op.get_bind().execute("GRANT ALL PRIVILEGES ON product_id_seq TO buddy")
 
 
 def downgrade():

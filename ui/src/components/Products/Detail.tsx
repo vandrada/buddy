@@ -10,7 +10,6 @@ export interface ProductDetailProps {
 
 export class ProductDetail extends React.Component<ProductDetailProps, any> {
     render() {
-        console.log(this.props)
         return (
             <div>
                 <h2>{this.props.product.description}</h2>

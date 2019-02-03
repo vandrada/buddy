@@ -1,19 +1,20 @@
 # Buddy
 
 ## API
-The api is built using Flask and alembic to manage the database migrations.
+The api is built using Flask, Python 3, and alembic to manage the database
+migrations.
 
 ### Database
-The api assumes a PostgreSQL database
+The api assumes a PostgreSQL database.
 
 ### Environment Variables
 The api is largely driven by environment variables. The following are the ones
-that important:
+that are important:
 
 * `DB_NAME`: the name of the database to connect to, assumes `buddy`
 * `DB_HOST`: the db cluster host, assumes `localhost`
 * `DB_USER`: the user to connect as, assumes $USER or, `buddy`
-* `DB_PASS`: the password the database, if required. Makes no assumptions
+* `DB_PASS`: the password for the database, if required. Makes no assumptions
 
 ### Up and Running
 
@@ -22,7 +23,8 @@ included in the API directory that get the database migrated and starts the
 docker container. You can run the following commands in the `api` directory.
 
 ```
-$ pip install -r requirements.txt
+$ pip install -r requirements-minimal.txt
+$ docker build -t buddy .
 $ ./prep-db.sh
 $ ./run-docker.sh
 ```
@@ -60,20 +62,27 @@ $ FLASK_APP=app.py flask run
 After this, the api should be running on :5000
 
 ### Endpoints
-The api exposes one endpoint `/inventory`, by default it lists all products.
-Searching can be enabled with url parameters.
+The api exposes one endpoint
+
+* GET `/inventory`
+
+by default it lists all products.  Searching can be enabled with url parameters.
 
 For example, getting `/inventory?department=Grocery` will return products in the
 Grocery department.
 
 Getting `/inventory?department=Produce&unit=lb` will list all products in the
-Produce inventory that are sold by the pound
+Produce department that are sold by the pound
 
 ### Docker
-There's also an included Dockerfile if you don't want to mess with virtualenvs.
+There's also an included Dockerfile, that can be built with
 
-To use it, you can run `build-docker.sh`. The script runs the docker on the host
-network to simplify it.
+```
+$ docker build -t buddy .
+```
+
+To run the container, you can use `run-docker.sh`. The script runs the
+container on the host network for simplicity.
 
 ## UI
 The UI is build using React and Typescript. Run the following commands in the

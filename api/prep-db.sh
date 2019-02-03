@@ -2,4 +2,5 @@
 
 createdb -e buddy
 alembic upgrade head
-python loader.py
+echo "loading"
+docker run -it --rm --net host buddy python /mnt/loader.py
