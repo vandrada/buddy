@@ -75,7 +75,7 @@ export class AdvancedSearch extends React.Component<AdvancedSearchProps, Advance
                                 title="Department"
                                 onChange={(option) => this.updateProduct({ department: Department[option] })}
                                 options={Department}
-                                placeholder="Deparment"
+                                placeholder="Department"
                             />
                             <SearchDropdown
                                 title="Unit"

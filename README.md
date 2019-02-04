@@ -18,6 +18,7 @@ that are important:
 
 ### Up and Running
 
+#### Docker
 If you don't want to run through the steps manually, there are two scripts
 included in the API directory that get the database migrated and starts the
 docker container. You can run the following commands in the `api` directory.
@@ -25,14 +26,21 @@ docker container. You can run the following commands in the `api` directory.
 **Note**: if using `pyenv`, I had to run `pyenv rehash` after installing the
 dependencies.
 
+If running on anything besides Linux, you may need to pass the `DB_HOST`
+variable.  On OS X, it needs to be `env DB_HOST=docker.for.mac.host.internal`.
+There's also a separate script `run-docker-osx.sh` for running on OS X.
+
 ```
 $ pip install -r requirements-minimal.txt
 $ docker build -t buddy .
 $ ./prep-db.sh
-$ ./run-docker.sh
+$ docker run -it --rm --net host [-e DB_HOST=docker.for.mac.host.internal] buddy python /mnt/loader.py
+$ ./run-docker.sh # or ./run-docker-osx.sh
 ```
 
 Or, you can follow the directions below to go step-by-step.
+
+#### 100% On the Metal
 
 To install the dependencies into whichever virtualenv you have set up, run the
 following command in the `api` directory. 
