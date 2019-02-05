@@ -19,7 +19,7 @@ export class BuddyClient {
             if (urlParams != "") {
                 urlParams += "&"
             }
-            if (params[key]) {
+            if (params[key] != undefined) {
                 urlParams += `${key}=${encodeURIComponent(params[key])}`
             }
         }
